@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXTATION: Lego Disruptive Chain Block Method™ - Story Mode 🚀</title>
+    <!-- Google Fonts for global typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <!--
+        INLINE STYLES FOR INITIAL LOAD AND ROBUSTNESS:
+        These styles are included directly in the HTML to ensure the core "Batman Computer / Star Wars Console"
+        aesthetic is present immediately upon load, even before external CSS might fully parse or if you're
+        viewing the raw HTML without a build process. They carefully implement the color variables and design
+        specifics from the NEXTATION WEBSITE COLOUR SYSTEM AND USAGE.pdf.
+    -->
+    <style>
+        /* Global Colour Variables and Design Tokens */
+        :root {
+            --bg-main: #02030b;
+            --bg-gradient: radial-gradient(circle at top, #1c1f3b 0%, #050716 45%, #02030b 100%);
+            --card-bg: rgba(15, 18, 40, 0.92);
+            --card-soft-bg: rgba(18, 21, 50, 0.88);
+            --accent-cyan: #4ef2ff;
+            --accent-pink: #ff2f92;
+            --accent-green: #4dff9b;
+            --accent-yello: #ffe25f;
+            --accent-purple: #aa5dff;
+            --muted: rgba(255,255,255,0.65);
+            --border-glow: rgba(120,120,255,0.45);
+            --shadow-strong: 0 0 36px rgba(130,80,255,0.6);
+            --shadow-soft: 0 0 20px rgba(0,0,0,0.65);
+            --radius-lg: 22px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --transition-fast: 0.18s ease-out;
+            --transition-med: 0.28s ease-out;
+
+            --tab-normal-bg: radial-gradient(circle at top, rgba(255,255,255,0.09), rgba(7,10,28,0.96));
+            --tab-normal-border: rgba(130,140,200,0.4);
+            --tab-hover-border-strong: rgba(120,120,255,0.6);
+            --tab-hover-shadow: 0 0 20px rgba(120,120,255,0.35);
+            --tab-active-bg: radial-gradient(circle at top, rgba(255,255,255,0.15), rgba(21,13,51,0.98));
+            --tab-active-border: rgba(103,255,196,0.9);
+            --tab-active-shadow: 0 0 24px rgba(79,255,204,0.6);
+            --tab-completed-bg: radial-gradient(circle at top, rgba(77,255,155,0.1), rgba(10,30,15,0.96));
+            --tab-completed-border: rgba(77,255,155,0.6);
+            --tab-completed-shadow: 0 0 15px rgba(77,255,155,0.4);
+        }
+
+        /* Base styles for the entire page */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-main);
+            background-image: var(--bg-gradient);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Header styles */
+        header {
+            background-color: var(--card-bg);
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border-glow);
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5em;
+            color: var(--accent-green);
+            text-shadow: 0 0 15px var(--accent-green);
+            margin: 0 0 10px 0;
+            letter-spacing: 1.5px;
+        }
+
+        header p {
+            color: var(--muted);
+            font-size: 1.1em;
+            margin: 0;
+        }
+
+        /* Main content area */
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .platform-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8em;
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px var(--accent-cyan);
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        /* Tab navigation styles */
+        .tab-navigation {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            max-width: 1200px;
+            width: 100%;
+            padding: 0 10px;
+        }
+
+        .tab-item {
+            background: var(--tab-normal-bg);
+            border: 1px solid var(--tab-normal-border);
+            border-radius: var(--radius-sm);
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: bold;
+            color: rgba(255,255,255,0.85);
+            transition: all var(--transition-med);
+            flex-shrink: 0;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .tab-item:hover {
+            border-color: var(--tab-hover-border-strong);
+            box-shadow: var(--tab-hover-shadow);
+            color: var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        .tab-item.active {
+            background: var(--tab-active-bg);
+            border-color: var(--tab-active-border);
+            box-shadow: var(--tab-active-shadow);
+            color: var(--accent-green);
+            transform: translateY(-1px);
+        }
+
+        .tab-item.completed {
+            background: var(--tab-completed-bg);
+            border-color: var(--tab-completed-border);
+            box-shadow: var(--tab-completed-shadow);
+            color: var(--accent-green);
+        }
+
+        /* Lesson panel styles */
+        .lesson-panel {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-strong);
+            padding: 30px;
+            max-width: 900px;
+            width: 100%;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-panel::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+            filter: blur(40px);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .lesson-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8em;
+            color: var(--accent-green);
+            text-shadow: 0 0 12px var(--accent-green);
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid rgba(77,255,155,0.3);
+            padding-bottom: 15px;
+        }
+
+        .story-section, .exercise-section {
+            background-color: var(--card-soft-bg);
+            border: 1px solid rgba(120,120,255,0.2);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            line-height: 1.6;
+            font-size: 1.05em;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .story-section h3, .exercise-section h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            letter-spacing: 0.5px;
+        }
+
+        .story-section p, .exercise-section p {
+            margin-bottom: 10px;
+        }
+
+        .separator {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(120,120,255,0.3), transparent);
+            margin: 25px 0;
+        }
+
+        /* Exercise specific styles */
+        .options label {
+            display: block;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            transition: background-color var(--transition-fast);
+            background-color: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .options label:hover {
+            background-color: rgba(255,255,255,0.15);
+        }
+
+        .options input[type="radio"] {
+            margin-right: 10px;
+            accent-color: var(--accent-purple); /* Custom color for radio button */
+        }
+
+        .exercise-section button {
+            background-color: var(--accent-purple);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            padding: 12px 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color var(--transition-fast), transform var(--transition-fast);
+            box-shadow: 0 4px 15px rgba(170,93,255,0.4);
+        }
+
+        .exercise-section button:hover {
+            background-color: #9a4dff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(170,93,255,0.6);
+        }
+
+        .explanation {
+            margin-top: 20px;
+            padding: 15px;
+            border-left: 4px solid var(--accent-green);
+            background-color: rgba(77,255,155,0.1);
+            border-radius: var(--radius-sm);
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95em;
+        }
+
+        .options label.correct {
+            background-color: rgba(77,255,155,0.3);
+            border-color: var(--accent-green);
+        }
+
+        .options label.incorrect {
+            background-color: rgba(255,47,146,0.3);
+            border-color: var(--accent-pink);
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: var(--card-bg);
+            padding: 20px 40px;
+            border-top: 1px solid var(--border-glow);
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9em;
+            margin-top: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            .platform-title {
+                font-size: 1.5em;
+            }
+
+            .tab-navigation {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .tab-item {
+                min-width: unset;
+                width: 100%;
+            }
+
+            .lesson-panel {
+                padding: 20px;
+                margin: 0 10px;
+            }
+
+            .lesson-title {
+                font-size: 1.5em;
+            }
+
+            .story-section, .exercise-section {
+                font-size: 1em;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Lego Disruptive Chain Block Method™ 🧱🚀</h1>
+        <p>by Daby</p>
+    </header>
+
+    <main>
+        <h2 class="platform-title">IMMERSIVE LEARNING PLATFORM 🧠💡</h2>
+
+        <div class="tab-navigation" id="tab-navigation">
+            <!-- Tab items will be dynamically inserted here by JavaScript -->
+        </div>
+
+        <div class="lesson-panel">
+            <h2 class="lesson-title" id="lesson-title"></h2>
+            <div id="lesson-content">
+                <!-- Lesson content will be dynamically inserted here by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 NEXTATION. All rights reserved. 🌟</p>
+    </footer>
+
+    <script>
+        // Data structure for all lessons
+        const lessons = [
+            {
+                id: 'situation1',
+                tabTitle: 'Situation 1',
+                expression: 'Super duper',
+                story_pt: `
+                    <p>No escritório da NEXTATION, a equipe estava celebrando o lançamento de um novo módulo. O projeto foi um sucesso absoluto, superando todas as expectativas. Quando Daby perguntou a Maria como ela se sentia sobre o resultado, ela respondeu com um sorriso radiante: "O projeto foi <strong style="color: var(--accent-yello);">super duper</strong>! Melhor do que esperávamos!"</p>
+                `,
+                story_en: `
+                    <p>At the NEXTATION office, the team was celebrating the launch of a new module. The project was an absolute success, exceeding all expectations. When Daby asked Maria how she felt about the outcome, she replied with a radiant smile: "The project was <strong style="color: var(--accent-yello);">super duper</strong>! Better than we expected!"</p>
+                `,
+                english_situation: `
+                    <p>Use "super duper" to express that something is exceptionally good, excellent, or fantastic in an enthusiastic and informal way. It's often used to emphasize a positive outcome or quality. ✨</p>
+                `,
+                exercise: {
+                    question: `
+                        <p>Seu amigo te pergunta como foi o show de rock que você assistiu ontem à noite e você amou cada minuto.</p>
+                        <p>Qual a melhor forma de descrever o show?</p>
+                    `,
+                    options: [
+                        { text: 'A) "It was okay."', isCorrect: false },
+                        { text: 'B) "It was super duper!"', isCorrect: true },
+                        { text: 'C) "It was just good."', isCorrect: false }
+                    ],
+                    explanation: `
+                        <p><strong style="color: var(--accent-yello);">Por quê?</strong> "Super duper" é a expressão perfeita para descrever algo que você amou e achou excelente, transmitindo entusiasmo e informalidade. É muito mais expressiva do que "okay" ou "just good". 🎉</p>
+                    `
+                }
+            },
+            {
+                id: 'situation2',
+                tabTitle: 'Situation 2',
+                expression: 'Sipping a nice wine',
+                story_pt: `
+                    <p>Após um longo dia de trabalho, Daby e sua esposa, Ana, decidiram relaxar na varanda. O sol estava se pondo, pintando o céu de laranja e roxo. Ana abriu uma garrafa de vinho tinto e, enquanto apreciavam a vista, Daby comentou: "Adoro ficar aqui, <strong style="color: var(--accent-yello);">tomando um bom vinho</strong> e aproveitando a tranquilidade."</p>
+                `,
+                story_en: `
+                    <p>After a long day at work, Daby and his wife, Ana, decided to relax on the balcony. The sun was setting, painting the sky orange and purple. Ana opened a bottle of red wine, and as they enjoyed the view, Daby commented: "I love being here, <strong style="color: var(--accent-yello);">sipping a nice wine</strong> and enjoying the tranquility."</p>
+                `,
+                english_situation: `
+                    <p>Use "sipping a nice wine" to describe the act of slowly and enjoyably drinking a good quality wine, often in a relaxed setting. "To sip" implies taking small, deliberate drinks. 🍷</p>
+                `,
+                exercise: {
+                    question: `
+                        <p>Você está em um jantar elegante e está saboreando sua bebida lentamente para apreciar o sabor.</p>
+                        <p>Como você descreveria o que está fazendo?</p>
+                    `,
+                    options: [
+                        { text: 'A) "I am drinking a wine fast."', isCorrect: false },
+                        { text: 'B) "I am gulping down some wine."', isCorrect: false },
+                        { text: 'C) "I am sipping a nice wine."', isCorrect: true }
+                    ],
+                    explanation: `
+                        <p><strong style="color: var(--accent-yello);">Por quê?</strong> "Sipping" descreve o ato de beber lentamente, saboreando a bebida, o que é perfeito para um "nice wine" em um jantar elegante. "Gulping" significa beber rapidamente, e "drinking fast" tem o mesmo sentido. 🥂</p>
+                    `
+                }
+            },
+            {
+                id: 'situation3',
+                tabTitle: 'Situation 3',
+                expression: 'To sue someone',
+                story_pt: `
+                    <p>Júlia descobriu que a empresa de reformas que contratou fez um trabalho péssimo e se recusou a corrigir os erros. Depois de várias tentativas de resolver amigavelmente, seu advogado a aconselhou: "Júlia, se eles não cooperarem, teremos que <strong style="color: var(--accent-yello);">processá-los</strong> para garantir seus direitos."</p>
+                `,
+                story_en: `
+                    <p>Julia discovered that the renovation company she hired did a terrible job and refused to fix the errors. After several attempts to resolve it amicably, her lawyer advised her: "Julia, if they don't cooperate, we'll have <strong style="color: var(--accent-yello);">to sue them</strong> to ensure your rights."</p>
+                `,
+                english_situation: `
+                    <p>Use "to sue someone" when you want to take legal action against an individual or company in a court of law, typically to claim compensation for damages or to enforce a right. It's a formal legal term. ⚖️</p>
+                `,
+                exercise: {
+                    question: `
+                        <p>Seu vizinho causou danos significativos à sua propriedade e se recusa a pagar pelos reparos.</p>
+                        <p>Qual ação legal você pode considerar?</p>
+                    `,
+                    options: [
+                        { text: 'A) "To argue with him."', isCorrect: false },
+                        { text: 'B) "To sue him."', isCorrect: true },
+                        { text: 'C) "To forgive him."', isCorrect: false }
+                    ],
+                    explanation: `
+                        <p><strong style="color: var(--accent-yello);">Por quê?</strong> "To sue someone" é a ação legal de levar alguém a tribunal para resolver uma disputa ou buscar compensação por danos. Argumentar ou perdoar não são ações legais para resolver o problema. 🏛️</p>
+                    `
+                }
+            },
+            {
+                id: 'situation4',
+                tabTitle: 'Situation 4',
+                expression: 'It is very dear',
+                story_pt: `
+                    <p>No antiquário, Daby viu um relógio de parede antigo que era exatamente o que ele procurava. Ao perguntar o preço, a vendedora informou: "Ah, este é uma peça rara, senhor. <strong style="color: var(--accent-yello);">É bem caro</strong>, mas vale cada centavo pela história e conservação."</p>
+                `,
+                story_en: `
+                    <p>In the antique shop, Daby saw an old wall clock that was exactly what he was looking for. When he asked for the price, the saleswoman informed him: "Ah, this is a rare piece, sir. <strong style="color: var(--accent-yello);">It is very dear</strong>, but worth every penny for its history and preservation."</p>
+                `,
+                english_situation: `
+                    <p>Use "it is very dear" as a polite and slightly formal way to say something is very expensive. While "expensive" is common, "dear" can add a nuance of value or rarity, often used for items like antiques or luxury goods. 💰</p>
+                `,
+                exercise: {
+                    question: `
+                        <p>Você está em uma galeria de arte e vê uma pintura que custa uma fortuna.</p>
+                        <p>Como você descreveria o preço da pintura de forma educada?</p>
+                    `,
+                    options: [
+                        { text: 'A) "It is cheap."', isCorrect: false },
+                        { text: 'B) "It is very dear."', isCorrect: true },
+                        { text: 'C) "It is affordable."', isCorrect: false }
+                    ],
+                    explanation: `
+                        <p><strong style="color: var(--accent-yello);">Por quê?</strong> "It is very dear" é uma forma elegante e um pouco mais formal de dizer que algo é muito caro, especialmente para itens de valor como obras de arte. 🖼️</p>
+                    `
+                }
+            },
+            {
+                id: 'situation5',
+                tabTitle: 'Situation 5',
+                expression: 'It is a prime location',
+                story_pt: `
+                    <p>Daby estava procurando um novo local para o escritório da NEXTATION. Ao visitar um prédio no centro da cidade, com fácil acesso a transportes e restaurantes, o corretor enfatizou: "Este lugar é perfeito! <strong style="color: var(--accent-yello);">É uma localização privilegiada - nobre</strong>, com grande visibilidade e conveniência para seus clientes e funcionários."</p>
+                `,
+                story_en: `
+                    <p>Daby was looking for a new office location for NEXTATION. Upon visiting a building in the city center, with easy access to transport and restaurants, the real estate agent emphasized: "This place is perfect! <strong style="color: var(--accent-yello);">It is a prime location</strong>, with great visibility and convenience for your clients and employees."</p>
+                `,
+                english_situation: `
+                    <p>Use "it is a prime location" to describe a place that is ideally situated, highly desirable, and offers significant advantages due to its position, accessibility, or prominence. It's often used in real estate or business contexts. 📍</p>
+                `,
+                exercise: {
+                    question: `
+                        <p>Você está descrevendo um apartamento que fica no coração da cidade, perto de tudo.</p>
+                        <p>Como você descreveria a localização?</p>
+                    `,
+                    options: [
+                        { text: 'A) "It is a bad location."', isCorrect: false },
+                        { text: 'B) "It is a remote location."', isCorrect: false },
+                        { text: 'C) "It is a prime location."', isCorrect: true }
+                    ],
+                    explanation: `
+                        <p><strong style="color: var(--accent-yello);">Por quê?</strong> "Prime location" é a expressão ideal para descrever um lugar que é excelente e muito desejável devido à sua posição central e conveniência. 🏙️</p>
+                    `
+                }
+            },
+            {
+                id: 'situation6',
+                tabTitle: 'Situation 6',
+                expression: 'It is far away',
+                story_pt: `
+                    <p>Maria estava planejando uma viagem de fim de semana para a praia, mas seu amigo, Pedro, estava hesitante. "A praia é linda, Maria, mas <strong style="color: var(--accent-yello);">é muito longe</strong>. A viagem de carro vai ser exaustiva," ele reclamou.</p>
+                `,
+                story_en: `
+                    <p>Maria was planning a weekend trip to the beach, but her friend, Pedro, was hesitant. "The beach is beautiful, Maria, but <strong style="color: var(--accent-yello);">it is far away</strong>. The car trip will be exhausting," he complained.</p>
+                `,
+                english_situation: `
+                    <p>Use "it is far away" to indicate that a place is at a considerable distance from the current location, implying that reaching it will take a significant amount of time or effort. 🗺️</p>
+                `,
+                exercise: {
+                    question: `
+                        <p>Você está tentando convencer seu amigo a ir a um restaurante novo, mas ele diz que não quer ir porque fica a duas horas de carro.</p>
+                        <p>Como ele descreveria a distância?</p>
+                    `,
+                    options: [
+                        { text: 'A) "It is nearby."', isCorrect: false },
+                        { text: 'B) "It is far away."', isCorrect: true },
+                        { text: 'C) "It is just around the corner."', isCorrect: false }
+                    ],
+                    explanation: `
+                        <p><strong style="color: var(--accent-yello);">Por quê?</strong> "It is far away" é a expressão correta para indicar que um lugar está a uma distância considerável, como duas horas de carro. 🚗</p>
+                    `
+                }
+            },
+            {
+                id: 'situation7',
+                tabTitle: 'Situation 7',
+                expression: 'Is that okay?',
+                story_pt: `
+                    <p>Daby estava organizando uma reunião e precisava confirmar a disponibilidade de todos. Ele enviou um e-mail com a proposta de horário: "Podemos nos encontrar na terça-feira às 10h da manhã? <strong style="color: var(--accent-yello);">Está tudo bem para você?</strong>" ele perguntou, esperando a confirmação.</p>
+                `,
+                story_en: `
+                    <p>Daby was organizing a meeting and needed to confirm everyone's availability. He sent an email with the proposed time: "Can we meet on Tuesday at 10 AM? <strong style="color: var(--accent-yello);">Is that okay?</strong>" he asked, awaiting confirmation.</p>
+                `,
+                english_situation: `
+                    <p>Use "Is that okay?" to politely ask for confirmation, approval, or to check if a proposed plan, time, or action is acceptable to someone. It's a versatile phrase for seeking agreement. ✅</p>
+                `,
+                exercise: {
+                    question: `
+                        <p>Você propõe a um colega de trabalho que vocês troquem de turno na próxima semana.</p>
+                        <p>Como você perguntaria se a troca é aceitável para ele?</p>
+                    `,
+                    options: [
+                        { text: 'A) "You must swap."', isCorrect: false },
+                        { text: 'B) "Is that okay?"', isCorrect: true },
+                        { text: 'C) "I demand you swap."', isCorrect: false }
+                    ],
+                    explanation: `
+                        <p><strong style="color: var(--accent-yello);">Por quê?</strong> "Is that okay?" é a forma mais educada e comum de perguntar se uma proposta ou arranjo é aceitável para a outra pessoa. 🤝</p>
+                    `
+                }
+            },
+            {
+                id: 'situation8',
+                tabTitle: 'Situation 8',
+                expression: 'Harassment',
+                story_pt: `
+                    <p>No ambiente de trabalho, uma nova política foi implementada para combater comportamentos inadequados. A gerente explicou: "Qualquer tipo de <strong style="color: var(--accent-yello);">assédio</strong>, seja verbal, físico ou psicológico, não será tolerado. É crucial que todos se sintam seguros e respeitados aqui."</p>
+                `,
+                story_en: `
+                    <p>In the workplace, a new policy was implemented to combat inappropriate behavior. The manager explained: "Any type of <strong style="color: var(--accent-yello);">harassment</strong>, whether verbal, physical, or psychological, will not be tolerated. It is crucial that everyone feels safe and respected here."</p>
+                `,
+                english_situation: `
+                    <p>"Harassment" refers to aggressive pressure or intimidation. It's a serious term describing unwanted conduct that creates a hostile environment, often in a workplace or social setting, and can be verbal, physical, or psychological. 🚫</p>
+                `,
+                exercise: {
+                    question: `
+                        <p>Um colega de trabalho está constantemente fazendo comentários ofensivos e indesejados para você, o que te deixa desconfortável.</p>
+                        <p>Como você descreveria esse comportamento?</p>
+                    `,
+                    options: [
+                        { text: 'A) "It is a joke."', isCorrect: false },
+                        { text: 'B) "It is harassment."', isCorrect: true },
+                        { text: 'C) "It is friendly banter."', isCorrect: false }
+                    ],
+                    explanation: `
+                        <p><strong style="color: var(--accent-yello);">Por quê?</strong> "Harassment" é o termo correto para descrever um comportamento ofensivo e indesejado que cria um ambiente hostil ou desconfortável, especialmente no local de trabalho. 🛑</p>
+                    `
+                }
+            },
+            {
+                id: 'situation9',
+                tabTitle: 'Situation 9',
+                expression: 'Thank you very much indeed',
+                story_pt: `
+                    <p>Daby estava em uma conferência e um colega o ajudou a resolver um problema técnico complexo em sua apresentação de última hora. Após o sucesso da apresentação, Daby apertou a mão do colega e disse com sinceridade: "Sua ajuda foi fundamental. <strong style="color: var(--accent-yello);">Muito obrigado mesmo</strong>!"</p>
+                `,
+                story_en: `
+                    <p>Daby was at a conference, and a colleague helped him solve a complex technical problem with his presentation at the last minute. After the successful presentation, Daby shook his colleague's hand and sincerely said: "Your help was crucial. <strong style="color: var(--accent-yello);">Thank you very much indeed</strong>!"</p>
+                `,
+                english_situation: `
+                    <p>Use "Thank you very much indeed" to express a high level of gratitude in a polite and somewhat formal manner. The word "indeed" adds emphasis and sincerity to your thanks, making it sound more heartfelt and appreciative. 🙏</p>
+                `,
+                exercise: {
+                    question: `
+                        <p>Alguém fez um grande favor para você, que resolveu um problema importante.</p>
+                        <p>Como você expressaria sua gratidão de forma muito educada e enfática?</p>
+                    `,
+                    options: [
+                        { text: 'A) "Thanks."', isCorrect: false },
+                        { text: 'B) "Thank you very much indeed."', isCorrect: true },
+                        { text: 'C) "I appreciate it a little."', isCorrect: false }
+                    ],
+                    explanation: `
+                        <p><strong style="color: var(--accent-yello);">Por quê?</strong> "Thank you very much indeed" é uma forma muito educada e enfática de expressar profunda gratidão, ideal para quando alguém fez um grande favor. "Indeed" reforça a sinceridade do agradecimento. ✨</p>
+                    `
+                }
+            },
+            {
+                id: 'situation10',
+                tabTitle: 'Situation 10',
+                expression: 'Much appreciated',
+                story_pt: `
+                    <p>Maria estava sobrecarregada com o trabalho e um colega se ofereceu para ajudá-la a revisar um relatório urgente. Depois que o relatório foi entregue a tempo, Maria agradeceu ao colega: "Sua ajuda com o relatório foi essencial. <strong style="color: var(--accent-yello);">Muito apreciado</strong>!"</p>
+                `,
+                story_en: `
+                    <p>Maria was overwhelmed with work, and a colleague offered to help her review an urgent report. After the report was submitted on time, Maria thanked her colleague: "Your help with the report was essential. <strong style="color: var(--accent-yello);">Much appreciated</strong>!"</p>
+                `,
+                english_situation: `
+                    <p>Use "Much appreciated" as a concise and polite way to express gratitude for help, a favor, or a kind gesture. It's often used when you want to acknowledge someone's effort or contribution without a lengthy sentence. 👍</p>
+                `,
+                exercise: {
+                    question: `
+                        <p>Um amigo te ajudou a mudar alguns móveis pesados para sua nova casa.</p>
+                        <p>Como você expressaria sua gratidão de forma concisa e educada?</p>
+                    `,
+                    options: [
+                        { text: 'A) "I don\'t care."', isCorrect: false },
+                        { text: 'B) "Much appreciated."', isCorrect: true },
+                        { text: 'C) "It was nothing."', isCorrect: false }
+                    ],
+                    explanation: `
+                        <p><strong style="color: var(--accent-yello);">Por quê?</strong> "Much appreciated" é uma forma concisa e educada de expressar gratidão por uma ajuda ou favor, reconhecendo o esforço da outra pessoa. É perfeito para situações como a ajuda na mudança. 💪</p>
+                    `
+                }
+            }
+        ];
+
+        let currentLessonIndex = -1;
+        let activeTabElement = null;
+
+        function renderLesson(lessonIndex) {
+            const lesson = lessons[lessonIndex];
+            const lessonContentDiv = document.getElementById('lesson-content');
+            const lessonTitleH2 = document.getElementById('lesson-title');
+
+            lessonTitleH2.innerHTML = `🔹 ${lesson.tabTitle} — <span style="color: var(--accent-yello);">${lesson.expression}</span>`;
+            lessonContentDiv.innerHTML = ''; // Clear previous content
+
+            // Story in Portuguese
+            lessonContentDiv.innerHTML += `
+                <h3 style="color: var(--accent-cyan); text-shadow: 0 0 8px rgba(78,242,255,0.5);">História em Português 🇧🇷</h3>
+                <div class="story-section">
+                    ${lesson.story_pt}
+                </div>
+                <div class="separator"></div>
+            `;
+
+            // Story in English
+            lessonContentDiv.innerHTML += `
+                <h3 style="color: var(--accent-cyan); text-shadow: 0 0 8px rgba(78,242,255,0.5);">Story in English 🇺🇸🇬🇧</h3>
+                <div class="story-section">
+                    ${lesson.story_en}
+                </div>
+                <div class="separator"></div>
+            `;
+
+            // Real-feeling English Situation
+            lessonContentDiv.innerHTML += `
+                <h3 style="color: var(--accent-cyan); text-shadow: 0 0 8px rgba(78,242,255,0.5);">Real-Feeling English Situation 💡</h3>
+                <div class="story-section">
+                    ${lesson.english_situation}
+                </div>
+                <div class="separator"></div>
+            `;
+
+            // Quick Exercise
+            lessonContentDiv.innerHTML += `
+                <h3 style="color: var(--accent-yello); text-shadow: 0 0 8px rgba(255,226,95,0.5);">Quick Exercise ✅</h3>
+                <div class="exercise-section">
+                    ${lesson.exercise.question}
+                    <div class="options" id="exercise-options-${lessonIndex}">
+                        ${lesson.exercise.options.map((option, idx) => `
+                            <label>
+                                <input type="radio" name="exercise-q-${lessonIndex}" value="${idx}" data-correct="${option.isCorrect}">
+                                ${option.text}
+                            </label>
+                        `).join('')}
+                    </div>
+                    <button onclick="checkExerciseAnswer(${lessonIndex})">CHECK ANSWER</button>
+                    <div class="explanation" id="exercise-explanation-${lessonIndex}" style="display: none;">
+                        ${lesson.exercise.explanation}
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkExerciseAnswer(lessonIndex) {
+            const optionsDiv = document.getElementById(`exercise-options-${lessonIndex}`);
+            const explanationDiv = document.getElementById(`exercise-explanation-${lessonIndex}`);
+            const radios = optionsDiv.querySelectorAll('input[type="radio"]');
+            let selectedCorrect = false;
+
+            radios.forEach(radio => {
+                const label = radio.closest('label');
+                label.classList.remove('correct', 'incorrect');
+                if (radio.checked) {
+                    if (radio.dataset.correct === 'true') {
+                        label.classList.add('correct');
+                        selectedCorrect = true;
+                    } else {
+                        label.classList.add('incorrect');
+                    }
+                }
+            });
+
+            explanationDiv.style.display = 'block';
+
+            if (selectedCorrect && currentLessonIndex !== -1) {
+                const tabElement = document.querySelector(`.tab-item[data-lesson-id="${lessons[currentLessonIndex].id}"]`);
+                if (tabElement && !tabElement.classList.contains('completed')) {
+                    tabElement.classList.add('completed');
+                }
+            }
+        }
+
+        function setActiveTab(tabElement, lessonIndex) {
+            if (activeTabElement) {
+                activeTabElement.classList.remove('active');
+            }
+            tabElement.classList.add('active');
+            activeTabElement = tabElement;
+            currentLessonIndex = lessonIndex;
+            renderLesson(lessonIndex);
+        }
+
+        // Initialize tabs
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabNavigation = document.getElementById('tab-navigation');
+            lessons.forEach((lesson, index) => {
+                const tabItem = document.createElement('div');
+                tabItem.classList.add('tab-item');
+                tabItem.textContent = lesson.tabTitle;
+                tabItem.dataset.lessonId = lesson.id;
+                tabItem.addEventListener('click', () => setActiveTab(tabItem, index));
+                tabNavigation.appendChild(tabItem);
+            });
+
+            // Set initial active tab (Situation 1)
+            if (lessons.length > 0) {
+                const firstTab = tabNavigation.querySelector('.tab-item');
+                if (firstTab) {
+                    setActiveTab(firstTab, 0);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
